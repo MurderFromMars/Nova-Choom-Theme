@@ -1,0 +1,83 @@
+# Main background, empty for terminal default, need to be empty if you want transparent background
+theme[main_bg]="#000000"
+
+# Main text color
+theme[main_fg]="#77fff9"
+
+# Title color for boxes
+theme[title]="#77fff9"
+
+# Highlight color for keyboard shortcuts
+theme[hi_fg]="#77fff9"
+
+# Background color of selected item in processes box
+theme[selected_bg]="#000000"
+
+# Foreground color of selected item in processes box
+theme[selected_fg]="#77fff9"
+
+# Color of inactive/disabled text
+theme[inactive_fg]="#fb1010"
+
+# Color of text appearing on top of graphs
+theme[graph_text]="#77fff9"
+
+# Background color of the percentage meters
+theme[meter_bg]="#77fff9"
+
+# Misc colors for processes box including mini cpu graphs, details memory graph and details status text
+theme[proc_misc]="#77fff9"
+
+# CPU, Memory, Network, Proc box outline colors
+theme[cpu_box]="#fb1010"
+theme[mem_box]="#fb1010"
+theme[net_box]="#fb1010"
+theme[proc_box]="#fb1010"
+
+# Box divider line and small boxes line color
+theme[div_line]="#fb1010"
+
+# Temperature graph color (start → mid → high)
+theme[temp_start]="#77fff9"
+theme[temp_mid]="#fb1010"
+theme[temp_end]="#fb1010"
+
+# CPU graph colors
+theme[cpu_start]="#77fff9"
+theme[cpu_mid]="#fb1010"
+theme[cpu_end]="#fb1010"
+
+# Mem/Disk free meter
+theme[free_start]="#77fff9"
+theme[free_mid]="#fb1010"
+theme[free_end]="#fb1010"
+
+# Mem/Disk cached meter
+theme[cached_start]="#77fff9"
+theme[cached_mid]="#fb1010"
+theme[cached_end]="#fb1010"
+
+# Mem/Disk available meter
+theme[available_start]="#77fff9"
+theme[available_mid]="#fb1010"
+theme[available_end]="#fb1010"
+
+# Mem/Disk used meter
+theme[used_start]="#77fff9"
+theme[used_mid]="#fb1010"
+theme[used_end]="#fb1010"
+
+# Download graph colors
+theme[download_start]="#77fff9"
+theme[download_mid]="#fb1010"
+theme[download_end]="#fb1010"
+
+# Upload graph colors
+theme[upload_start]="#77fff9"
+theme[upload_mid]="#fb1010"
+theme[upload_end]="#fb1010"
+
+# Process box color gradient
+theme[process_start]="#77fff9"
+theme[process_mid]="#fb1010"
+theme[process_end]="#fb1010"
