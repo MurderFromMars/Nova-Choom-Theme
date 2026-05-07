@@ -1,0 +1,422 @@
+/* ---------------------------------------------------------
+ * CyberXero – Full Libadwaita Override Theme
+ * Palette restricted to: #000000, #77fff9, #fb1010
+ * --------------------------------------------------------- */
+
+/* ---------- Core Palette ---------- */
+@define-color cx-bg            #000000;
+@define-color cx-bg-alt        #000000;
+@define-color cx-accent        #fb1010;
+@define-color cx-focus         #fb1010;
+@define-color cx-active        #77fff9;
+@define-color cx-active-alt    #77fff9;
+@define-color cx-inactive      #77fff9;
+@define-color cx-link          #77fff9;
+@define-color cx-link-visited  #77fff9;
+@define-color cx-positive      #77fff9;
+@define-color cx-neutral       #fb1010;
+@define-color cx-negative      #fb1010;
+@define-color cx-selection-bg  #fb1010;
+@define-color cx-selection-alt #fb1010;
+@define-color cx-selection-fg  #000000;
+@define-color cx-tooltip-bg    #000000;
+@define-color cx-tooltip-fg    #77fff9;
+@define-color cx-header-bg     #000000;
+@define-color cx-header-fg     #77fff9;
+@define-color cx-border        #fb1010;
+@define-color cx-border-dim    #77fff9;
+
+/* ---------------------------------------------------------
+ * LIBADWAITA INTERNAL COLOR VARIABLES
+ * These are what Adwaita actually reads internally.
+ * Defining them here overrides the gray at the source.
+ * --------------------------------------------------------- */
+@define-color window_bg_color           #000000;
+@define-color window_fg_color           #77fff9;
+@define-color view_bg_color             #000000;
+@define-color view_fg_color             #77fff9;
+@define-color card_bg_color             #000000;
+@define-color card_fg_color             #77fff9;
+@define-color popover_bg_color          #000000;
+@define-color popover_fg_color          #77fff9;
+@define-color sidebar_bg_color          #000000;
+@define-color sidebar_fg_color          #77fff9;
+@define-color sidebar_border_color      #fb1010;
+@define-color headerbar_bg_color        #000000;
+@define-color headerbar_fg_color        #77fff9;
+@define-color headerbar_border_color    #fb1010;
+@define-color headerbar_shade_color     rgba(0,0,0,0.4);
+@define-color accent_bg_color           #fb1010;
+@define-color accent_fg_color           #000000;
+@define-color accent_color              #fb1010;
+@define-color destructive_bg_color      #fb1010;
+@define-color destructive_fg_color      #000000;
+@define-color destructive_color         #fb1010;
+@define-color success_bg_color          #77fff9;
+@define-color success_fg_color          #000000;
+@define-color success_color             #77fff9;
+@define-color warning_bg_color          #fb1010;
+@define-color warning_fg_color          #000000;
+@define-color warning_color             #fb1010;
+@define-color error_bg_color            #fb1010;
+@define-color error_fg_color            #000000;
+@define-color error_color               #fb1010;
+@define-color thumbnail_bg_color        #000000;
+@define-color thumbnail_fg_color        #77fff9;
+@define-color shade_color               rgba(0,0,0,0.35);
+@define-color scrollbar_outline_color   #fb1010;
+
+/* ---------------------------------------------------------
+ * GLOBAL
+ * --------------------------------------------------------- */
+*,
+window,
+window.background,
+window > *,
+.background,
+.background > * {
+    background-color: @cx-bg;
+    color: @cx-active-alt;
+}
+
+*:disabled {
+    color: @cx-inactive;
+}
+
+/* ---------------------------------------------------------
+ * COMPOSITING / LAYOUT CONTAINERS — MUST BE TRANSPARENT
+ *
+ * These widgets are pure layout or compositing layers.
+ * The * rule above gives them background-color: @cx-bg,
+ * which causes them to paint a solid opaque rectangle over
+ * everything rendered beneath them in the widget tree.
+ *
+ * GtkOverlay: stacks children on top of each other.
+ *   The base child sits below all overlay children. If the
+ *   overlay widget itself gets an opaque background, it is
+ *   painted over the base layer, hiding all base content.
+ *
+ * GtkRevealer: fades/slides its child in and out. Even with
+ *   reveal-child=false it still occupies its allotted space
+ *   in the overlay. An opaque background here covers the
+ *   underlying task list even when the sidebar is hidden.
+ *
+ * Setting these to transparent lets their child surfaces
+ * carry their own backgrounds correctly.
+ * --------------------------------------------------------- */
+overlay,
+revealer,
+revealer > *:not(.sidebar):not(.background) {
+    background-color: transparent;
+}
+
+/* ---------------------------------------------------------
+ * SPINNERS, IMAGES & ANIMATED WIDGETS
+ * Must come immediately after the * rule to override it.
+ * The * wildcard paints a solid background over every node
+ * in the widget tree — including the internal nodes that
+ * spinners and icons use to draw themselves — making them
+ * invisible until a forced redraw exposes them briefly.
+ * --------------------------------------------------------- */
+spinner,
+spinner *,
+.spinner,
+image,
+image *,
+picture,
+picture * {
+    background-color: transparent;
+    color: @cx-active-alt;
+    opacity: 1;
+}
+
+/* ---------------------------------------------------------
+ * TEXTVIEW (task runner output pane)
+ * The internal 'text' CSS node of GtkTextView is a separate
+ * render node. The * rule paints it with a solid background
+ * which can obscure TextTag foreground colors. Explicit rules
+ * here ensure the text surface is properly styled.
+ * --------------------------------------------------------- */
+textview,
+textview > text,
+textview text {
+    background-color: @cx-bg;
+    color: @cx-active-alt;
+}
+
+/* ---------------------------------------------------------
+ * CONTENT PANE / MAIN VIEW AREA
+ * Catches the gray that Adwaita paints over window rules
+ * --------------------------------------------------------- */
+.view,
+viewport,
+scrolledwindow > viewport,
+scrolledwindow viewport > *,
+stack > *,
+leaflet > *,
+leaflet stack > *,
+.content,
+.main-page,
+clamp > *,
+adw-navigation-page,
+adw-navigation-page > *,
+AdwNavigationPage,
+AdwNavigationPage > *,
+AdwNavigationView,
+AdwNavigationView > *,
+AdwToolbarView,
+AdwToolbarView > *,
+.adw-navigation-view,
+.navigation-view,
+.content-pane,
+.page {
+    background-color: @cx-bg;
+    color: @cx-active-alt;
+}
+
+/* ---------------------------------------------------------
+ * HEADERBAR
+ * --------------------------------------------------------- */
+headerbar,
+headerbar.default-decoration,
+.titlebar {
+    background-color: @cx-header-bg;
+    color: @cx-header-fg;
+    border-bottom: 1px solid @cx-border;
+    box-shadow: none;
+}
+
+headerbar button.titlebutton:hover {
+    background-color: alpha(@cx-focus, 0.25);
+}
+
+/* ---------------------------------------------------------
+ * BUTTONS
+ * --------------------------------------------------------- */
+button {
+    background-color: @cx-bg;
+    color: @cx-active;
+    border: 1px solid @cx-border-dim;
+    border-radius: 6px;
+}
+
+button:hover {
+    background-color: shade(@cx-bg, 1.3);
+    border-color: @cx-border;
+}
+
+button:active,
+button:checked {
+    background-color: @cx-accent;
+    color: @cx-selection-fg;
+    border-color: @cx-focus;
+}
+
+button.suggested-action {
+    background-color: @cx-accent;
+    color: #000000;
+}
+
+button.destructive-action {
+    background-color: @cx-negative;
+    color: #000000;
+}
+
+/* ---------------------------------------------------------
+ * ENTRY / SEARCH
+ * --------------------------------------------------------- */
+entry,
+searchentry {
+    background-color: @cx-bg;
+    color: @cx-active-alt;
+    border: 1px solid @cx-border-dim;
+    border-radius: 4px;
+}
+
+entry:focus,
+searchentry:focus {
+    border-color: @cx-focus;
+    box-shadow: 0 0 0 2px alpha(@cx-focus, 0.4);
+}
+
+/* ---------------------------------------------------------
+ * SCROLLBARS
+ * --------------------------------------------------------- */
+scrollbar slider {
+    background-color: @cx-active-alt;
+    border-radius: 999px;
+}
+
+scrollbar slider:hover {
+    background-color: @cx-accent;
+}
+
+/* ---------------------------------------------------------
+ * SELECTIONS
+ * --------------------------------------------------------- */
+selection,
+text selection,
+listview row:selected,
+treeview row:selected {
+    background-color: @cx-selection-bg;
+    color: @cx-selection-fg;
+}
+
+/* ---------------------------------------------------------
+ * LINKS
+ * --------------------------------------------------------- */
+*:link {
+    color: @cx-link;
+}
+
+*:visited {
+    color: @cx-link-visited;
+}
+
+*:link:hover,
+*:visited:hover {
+    color: @cx-active-alt;
+}
+
+/* ---------------------------------------------------------
+ * TOOLTIP
+ * --------------------------------------------------------- */
+tooltip {
+    background-color: @cx-tooltip-bg;
+    color: @cx-tooltip-fg;
+    border: 1px solid @cx-border;
+}
+
+/* ---------------------------------------------------------
+ * CHECKS & RADIOS
+ * --------------------------------------------------------- */
+checkbutton check,
+radiobutton radio {
+    border: 1px solid @cx-border-dim;
+    background-color: @cx-bg;
+}
+
+checkbutton check:checked,
+radiobutton radio:checked {
+    background-color: @cx-accent;
+    border-color: @cx-focus;
+}
+
+/* ---------------------------------------------------------
+ * PROGRESS / SLIDERS
+ * --------------------------------------------------------- */
+progressbar trough,
+scale trough {
+    background-color: shade(@cx-bg, 0.8);
+    border-radius: 999px;
+}
+
+progressbar progress,
+scale highlight {
+    background-color: @cx-active-alt;
+    border-radius: 999px;
+}
+
+/* ---------------------------------------------------------
+ * LISTS
+ * --------------------------------------------------------- */
+listview,
+listview > *,
+listview row {
+    background-color: @cx-bg;
+    color: @cx-active-alt;
+}
+
+listview row:selected {
+    background-color: @cx-selection-alt;
+    color: @cx-selection-fg;
+    border-left: 2px solid @cx-focus;
+}
+
+/* ---------------------------------------------------------
+ * SIDEBAR
+ * --------------------------------------------------------- */
+.sidebar,
+.navigation-sidebar,
+.navigation-sidebar > *,
+.navigation-sidebar row,
+.navigation-sidebar row > * {
+    background-color: @cx-bg !important;
+    color: @cx-active-alt !important;
+}
+
+.navigation-sidebar row:selected {
+    background-color: @cx-selection-alt !important;
+    color: @cx-selection-fg !important;
+    border-left: 2px solid @cx-focus;
+}
+
+.navigation-sidebar row:hover {
+    background-color: shade(@cx-bg, 1.2) !important;
+}
+
+/* ---------------------------------------------------------
+ * POPOVERS / MENUS
+ * --------------------------------------------------------- */
+popover,
+popover.background,
+popover > contents,
+popover contents,
+popover menu,
+popover modelbutton {
+    background-color: @cx-bg !important;
+    color: @cx-active-alt !important;
+    border: 1px solid @cx-border !important;
+    box-shadow: 0 0 12px rgba(251, 16, 16, 0.35);
+}
+
+modelbutton,
+menuitem {
+    background-color: transparent;
+    color: @cx-active-alt;
+    border-radius: 4px;
+}
+
+modelbutton:hover,
+menuitem:hover {
+    background-color: shade(@cx-bg, 1.25);
+    color: @cx-active;
+}
+
+modelbutton:selected,
+menuitem:selected {
+    background-color: @cx-selection-bg;
+    color: @cx-selection-fg;
+}
+
+popover separator,
+menu separator {
+    background-color: @cx-border-dim;
+    min-height: 1px;
+}
+
+headerbar popover,
+headerbar popover.background {
+    background-color: @cx-bg !important;
+    border: 1px solid @cx-border !important;
+}
+
+/* ---------------------------------------------------------
+ * CARDS (AdwActionRow, AdwPreferencesGroup, etc.)
+ * --------------------------------------------------------- */
+.card,
+.boxed-list,
+.boxed-list > row,
+row.activatable {
+    background-color: @cx-bg;
+    color: @cx-active-alt;
+}
+
+row.activatable:hover {
+    background-color: shade(@cx-bg, 1.2);
+}
+
+/* ---------------------------------------------------------
+ * IMPORT USER COLORS
+ * --------------------------------------------------------- */
+@import 'colors.css';
